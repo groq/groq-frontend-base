@@ -1,6 +1,23 @@
 
 # groq-frontend-base
 
+## Steps we followed to create this project
+
+- Create next.js project
+  - typescript
+  - tailwindcss
+- Add biome.js
+- Add shadcn ui
+- Add shadcn Dark mode
+- Add prettier
+- Add husky
+- Add commitlint
+- Add jest
+- Add react testing library
+- Add react query
+- Add react hook form
+- Add zod
+
 Base project for bootstrapping frontend projects
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
