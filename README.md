@@ -3,20 +3,19 @@
 
 ## Steps we followed to create this project
 
-- Create next.js project
+- [x] Create next.js project
   - typescript
   - tailwindcss
-- Add biome.js
-- Add shadcn ui
-- Add shadcn Dark mode
-- Add prettier
-- Add husky
-- Add commitlint
-- Add jest
-- Add react testing library
-- Add react query
-- Add react hook form
-- Add zod
+- [x] Add biome.js
+- [x] Add shadcn ui
+- [x] Add shadcn Dark mode
+- [ ] Add husky
+- [ ] Add commitlint
+- [ ] Add jest
+- [ ] Add react testing library
+- [ ] Add react query
+- [ ] Add react hook form
+- [ ] Add zod
 
 Base project for bootstrapping frontend projects
 
