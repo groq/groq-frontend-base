@@ -1,44 +1,146 @@
 
 # groq-frontend-base
 
-This is a base project for a frontend application that uses the Groq API.
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
 
-## How to use it
+> **A Next.js template that integrates Groq API, Tailwind CSS, ShadCN UI, and a chat completion feature with both server-side and client-side components.**  
 
-### 1. Clone the repository
-You can clone the repository or click `Use this template` button.
+This repository serves as a **base project** for creating a frontend application that communicates with the Groq API. It's pre-configured with a modern stack to help you get up and running quickly.
 
-### 2. Install the dependencies
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Usage Examples](#usage-examples)
+- [Environment Variables](#environment-variables)
+- [Development Workflow](#development-workflow)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Features
+
+- **Next.js (TypeScript)** – A popular React framework for production-grade apps.
+- **Tailwind CSS** – Utility-first CSS framework for rapid UI development.
+- **ShadCN UI** – A design system built on top of Radix UI and Tailwind.
+- **Biome.js** – For code formatting, linting, and general code quality improvements.
+- **Server-side Chat Completion** – Use the Groq API for server-side chat logic.
+- **Client-side Chat Hook** – A React hook to handle client-side chat completion logic.
+
+---
+
+## Getting Started
+
+### 1. Clone or Use This Template
+
+You can clone the repository:
+
+```bash
+git clone https://github.com/your-username/groq-frontend-base.git
+cd groq-frontend-base
 ```
-pnpm i
-```     
 
-### 3. Run the development server
+Or click the **“Use this template”** button on GitHub to create a new repository from this template.
+
+### 2. Install Dependencies
+
+This project uses [pnpm](https://pnpm.io/). To install dependencies:
+
+```bash
+pnpm install
 ```
-pnpm dev
-```
 
-### 4. Make sure you have a valid API Key
+### 3. Set Up Environment Variables
 
-- It will use `GROQ_API_KEY` from the environment variables.
-- You can also define it in `/.env.local` file:
+Create a file named `.env.local` in the project root. Include your **Groq API key**:
 
-```
-# GROQ_API_KEY must be secret and not shared with anyone.
+```bash
+# GROQ_API_KEY must be secret and not shared.
 GROQ_API_KEY=your_api_key
 ```
 
-### 5. Start Cooking!
+### 4. Run the Development Server
 
-- Take a look to `/src/app/` to make the app your own.
+```bash
+pnpm dev
+```
 
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
-## Steps we followed to create this project (Stack)
+### 5. Build for Production
 
-- [x] Create next.js project (typescript, tailwindcss)
-- [x] Add biome.js
-- [x] Add shadcn ui
-- [x] Add shadcn Dark mode
-- [x] Add server side chat completion
-- [x] Add client side chat completion react hook
+If you want to build for production:
 
+```bash
+pnpm build
+pnpm start
+```
+
+*(Adjust as needed if you’re deploying to a service like Vercel or Netlify.)*
+
+---
+
+## Project Structure
+
+A quick look at the top-level files and directories you’ll see in this project:
+
+```
+.
+├── public/                # Static assets
+├── src/                   
+│   ├── app/               # Next.js App Router
+│   │     ├── api/         # Implements Groq-API server-side chat completion
+│   │     └── page.tsx     # Uses the chat completion hook
+│   ├── components/        # Shared components
+│   ├── hooks/             # React hooks (including chat completion hook)
+│   ├── lib/               # Basic utility functions
+│   └── providers/         # Providers folder. Includes theme-provider
+├── .env.local             # Environment variables (not committed)
+└── (config files)
+```
+
+---
+
+## Environment Variables
+
+The project expects the following environment variable in `.env.local`:
+
+```bash
+GROQ_API_KEY=your_api_key_here
+```
+
+- **GROQ_API_KEY**: Used to authenticate requests to the Groq API. Make sure not to commit this key to a public repository.
+
+---
+
+## Development Workflow
+
+1. **Pull requests**: Open a PR for any feature or fix.  
+2. **Lint & format**: This project uses Biome.js, which can be run via `pnpm biome lint`.  
+3. **Commits**: Use clear commit messages (e.g., [Conventional Commits](https://www.conventionalcommits.org/)) if preferred.  
+
+---
+
+## Contributing
+
+Contributions are welcome! Please open issues for feature requests or bug reports.  
+1. Fork this repository  
+2. Create a new branch for your feature/fix  
+3. Commit your changes  
+4. Open a pull request against the `main` branch  
+
+For major changes, please discuss with the maintainers via GitHub issues first to ensure they align with the project roadmap.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). You’re free to use and modify this code for your own purposes.  
+
+---
+
+*Happy coding! If you have any questions or feedback, feel free to open an issue.*
