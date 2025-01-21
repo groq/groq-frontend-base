@@ -17,12 +17,12 @@ pnpm i
 pnpm dev
 ```
 
-## API Key Required
+### 4. Make sure you have a valid API Key
 
 - It will use `GROQ_API_KEY` from the environment variables.
 - You can also define it in `/.env.local` file:
 
-## Start Cooking!
+### 5. Start Cooking!
 
 - Take a look to `/src/app/` to make the app your own.
 
