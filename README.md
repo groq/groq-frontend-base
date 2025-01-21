@@ -6,6 +6,7 @@ This is a base project for a frontend application that uses the Groq API.
 ## How to use it
 
 ### 1. Clone the repository
+You can clone the repository or click `Use this template` button.
 
 ### 2. Install the dependencies
 ```
@@ -22,14 +23,15 @@ pnpm dev
 - It will use `GROQ_API_KEY` from the environment variables.
 - You can also define it in `/.env.local` file:
 
-### 5. Start Cooking!
-
-- Take a look to `/src/app/` to make the app your own.
-
 ```
 # GROQ_API_KEY must be secret and not shared with anyone.
 GROQ_API_KEY=your_api_key
 ```
+
+### 5. Start Cooking!
+
+- Take a look to `/src/app/` to make the app your own.
+
 
 ## Steps we followed to create this project (Stack)
 
