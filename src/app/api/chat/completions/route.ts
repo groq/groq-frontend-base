@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
 					model: "llama-3.3-70b-specdec",
 					messages,
 					stream: true,
+					temperature: 0.5,
 				});
 
 				for await (const chunk of response) {
