@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useMicrophone } from "@/hooks/use-microphone";
 import { useTranscription } from "@/hooks/use-transcription";
 import { LoaderCircle, Mic, Play, Square } from "lucide-react";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { usePlayAudio } from "@/hooks/use-play-audio";
 
 export function MicButton({
