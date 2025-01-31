@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useMicrophone } from "@/hooks/use-microphone";
 import { useTranscription } from "@/hooks/use-transcription";
-import { LoaderCircle, Mic, Play, Square } from "lucide-react";
+import { LoaderCircle, Mic } from "lucide-react";
 import { useEffect } from "react";
-import { usePlayAudio } from "@/hooks/use-play-audio";
 
 export function MicButton({
 	onTranscription,
@@ -11,7 +10,6 @@ export function MicButton({
 	const { isRecording, toggleRecording, audioBlob, isCapturing } =
 		useMicrophone();
 	const { transcribeAudio, transcription } = useTranscription();
-	const { playAudio, isPlaying, stopAudio } = usePlayAudio(audioBlob);
 
 	useEffect(() => {
 		if (audioBlob) {
@@ -25,6 +23,18 @@ export function MicButton({
 			onTranscription(transcription);
 		}
 	}, [transcription]);
+
+	// also toggleRecording on Cmd + D
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.metaKey && event.key === "d") {
+				event.preventDefault();
+				toggleRecording();
+			}
+		};
+		window.addEventListener("keydown", handleKeyDown);
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, [toggleRecording]);
 
 	return (
 		<div className="flex items-center gap-1">
@@ -43,11 +53,11 @@ export function MicButton({
 					<Mic size={16} />
 				)}
 			</Button>
-			{audioBlob && (
+			{/* {audioBlob && (
 				<Button size="icon" onClick={isPlaying ? stopAudio : playAudio}>
 					{isPlaying ? <Square size={16} /> : <Play size={16} />}
 				</Button>
-			)}
+			)} */}
 		</div>
 	);
 }

@@ -29,7 +29,7 @@ export function useMicrophone() {
 			mediaRecorder.current.onstart = () => {
 				setTimeout(() => {
 					setIsCapturing(true);
-				}, 1000); // delay to allow the browser to start capturing
+				}, 500); // delay to allow the browser to start capturing
 			};
 
 			// (5) When recording stops

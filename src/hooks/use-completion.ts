@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 
-// Example interface; adjust to fit your needs
-interface ChatCompletionMessage {
+export interface ChatCompletionMessage {
 	role: "system" | "user" | "assistant";
 	content: string;
 }
@@ -19,6 +18,8 @@ export function useCompletion() {
 
 	const sendMessage = useCallback(
 		async (userMessage: string) => {
+			let responseMessage = "";
+
 			// Clear any existing error & set loading
 			setError(null);
 			setLoading(true);
@@ -72,6 +73,7 @@ export function useCompletion() {
 							if (line.startsWith("data: ")) {
 								const data = line.slice("data: ".length);
 								const { text } = JSON.parse(data);
+								responseMessage += text;
 
 								// Server might send "[DONE]" to signal completion
 								if (text !== "[DONE]") {
@@ -105,6 +107,7 @@ export function useCompletion() {
 			} finally {
 				setLoading(false);
 			}
+			return responseMessage;
 		},
 		[messages, systemPrompt],
 	);

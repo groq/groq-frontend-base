@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
 	try {
 		const body = await req.json();
-		const { messages } = body;
+		const { model, messages } = body;
 		if (!messages) {
 			return new Response(JSON.stringify({ error: "Missing prompt" }), {
 				status: 400,
@@ -33,10 +33,11 @@ export async function POST(req: NextRequest) {
 		const readableStream = new ReadableStream({
 			async start(controller) {
 				const response = await groq.chat.completions.create({
-					model: "llama-3.3-70b-specdec",
+					model: model || "llama-3.3-70b-specdec",
 					messages,
 					stream: true,
 					temperature: 0.5,
+					max_tokens: 8_192,
 				});
 
 				for await (const chunk of response) {
