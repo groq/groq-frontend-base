@@ -60,7 +60,10 @@ export default function Home() {
 				<div className="flex flex-col gap-4">
 					{[{ role: "system", content: systemPrompt }, ...messages].map(
 						(message, index) => (
-							<div key={`${message.role}-${index}`} className="max-w-[500px]">
+							<div
+								key={`${message.role}-${index}`}
+								className="max-w-[500px] last:mb-10"
+							>
 								<div className="opacity-50">{message.role}</div>
 								<MarkdownBlock>{message.content}</MarkdownBlock>
 							</div>

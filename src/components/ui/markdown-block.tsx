@@ -23,6 +23,16 @@ export function MarkdownBlock({
 					<ul className="list-decimal py-2 ">{children}</ul>
 				),
 				li: ({ children }) => <li className="ml-6 py-1">{children}</li>,
+				table: ({ children }) => (
+					<table className="border border-border">{children}</table>
+				),
+				tr: ({ children }) => <tr className="">{children}</tr>,
+				th: ({ children }) => (
+					<th className="border border-border p-2 text-left">{children}</th>
+				),
+				td: ({ children }) => (
+					<td className="border border-border px-2 py-1">{children}</td>
+				),
 			}}
 		>
 			{children}
