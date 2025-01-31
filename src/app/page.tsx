@@ -6,6 +6,7 @@ import { AlertCircle, CornerDownLeft } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MicButton } from "./components/mic-button";
 import { Input } from "@/components/ui/input";
+import { MarkdownBlock } from "@/components/ui/markdown-block";
 
 const systemPrompt = "You are a great story teller";
 const prompt = "Tell me a story about a robot";
@@ -61,7 +62,7 @@ export default function Home() {
 						(message, index) => (
 							<div key={`${message.role}-${index}`} className="max-w-[500px]">
 								<div className="opacity-50">{message.role}</div>
-								<div className=" whitespace-pre-wrap">{message.content}</div>
+								<MarkdownBlock>{message.content}</MarkdownBlock>
 							</div>
 						),
 					)}
