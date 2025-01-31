@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useCompletion } from "@/hooks/use-completion";
-import { AlertCircle, CornerDownLeft } from "lucide-react";
+import { AlertCircle, Command, CornerDownLeft } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MicButton } from "./components/mic-button";
 import { Input } from "@/components/ui/input";
@@ -102,6 +102,9 @@ export default function Home() {
 						{error.message}
 					</div>
 				)}
+				<div className="text-sm text-muted-foreground flex items-center gap-1 justify-center">
+					<Command size={16} /> + D to start/stop microphone
+				</div>
 				<div className="flex justify-center gap-4 w-full">
 					<form
 						className="flex-1 flex justify-center gap-4 w-full"
