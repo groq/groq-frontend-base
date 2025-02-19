@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import type { ChatCompletionTool } from "groq-sdk/resources/chat/completions.mjs";
 
 // Example interface; adjust to fit your needs
-interface ChatCompletionMessage {
+export interface ChatCompletionMessage {
 	role: "system" | "user" | "assistant" | "tool";
 	content?: string;
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>

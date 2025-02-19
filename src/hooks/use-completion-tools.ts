@@ -13,7 +13,7 @@ export interface ToolResult {
 
 export type ToolHandler = { handler: (tool: ToolCall) => Promise<ToolResult> };
 
-export function useTools() {
+export function useCompletionWithTools() {
 	const completion = useCompletion();
 	const [toolHandler, setToolHandler] = useState<ToolHandler | null>(null);
 	const { messages, addMessageAndSend } = completion;
@@ -43,7 +43,6 @@ export function useTools() {
 								role: "tool",
 								tool_call_id: toolCall.id,
 								content: result.content,
-								name: toolCall.function.name,
 							},
 							// true,
 						);
