@@ -7,7 +7,6 @@ import {
 } from "@/hooks/use-completion-tools";
 import { ChatComponent } from "./components/chat-component";
 import type { ChatCompletionTool } from "groq-sdk/resources/chat/completions.mjs";
-import type { ChatCompletionMessage } from "@/hooks/use-completion";
 
 /**
  *
@@ -71,17 +70,12 @@ const handler = async (tool: ToolCall) => {
 export default function Home() {
 	const {
 		messages,
-		sendMessage,
-		setSystemPrompt,
 		error,
+		setMessages,
+		sendMessage,
 		setToolHandler,
 		setTools,
 	} = useCompletionWithTools();
-
-	const allMessages: ChatCompletionMessage[] = useMemo(
-		() => [{ role: "system", content: systemPrompt }, ...messages],
-		[messages],
-	);
 
 	const handleSendMessage = useMemo(
 		() => (message: string) => {
@@ -91,8 +85,8 @@ export default function Home() {
 	);
 
 	useEffect(() => {
-		setSystemPrompt(systemPrompt);
-	}, [setSystemPrompt]);
+		setMessages([{ role: "system", content: systemPrompt }]);
+	}, [setMessages]);
 
 	useEffect(() => {
 		setTools(tools);
@@ -106,7 +100,7 @@ export default function Home() {
 		<main className="flex  h-svh ">
 			<ChatComponent
 				defaultPrompt={prompt}
-				messages={allMessages}
+				messages={messages}
 				error={error}
 				handleNewMessage={handleSendMessage}
 			/>

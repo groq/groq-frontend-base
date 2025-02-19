@@ -15,28 +15,22 @@ export function useCompletion() {
 	const [error, setError] = useState<Error | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
-	const [systemPrompt, setSystemPrompt] = useState<string | null>(null);
 	const [tools, setTools] = useState<ChatCompletionTool[]>([]);
 	const [triggerSend, setTriggerSend] = useState(false);
 
 	const reset = useCallback(() => {
 		setMessages([]);
-		setSystemPrompt(null);
 	}, []);
 
 	const sendMessages = useCallback(async () => {
 		setError(null);
 		setLoading(true);
 
-		const messagesPack = systemPrompt
-			? [{ role: "system", content: systemPrompt }, ...messages]
-			: messages;
-
 		try {
 			const response = await fetch("/api/chat/completions", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ messages: messagesPack, tools }),
+				body: JSON.stringify({ messages, tools }),
 			});
 
 			if (!response.ok) {
@@ -110,7 +104,7 @@ export function useCompletion() {
 		} finally {
 			setLoading(false);
 		}
-	}, [messages, systemPrompt, tools]);
+	}, [messages, tools]);
 
 	const addMessageAndSend = useCallback(
 		(message: ChatCompletionMessage, avoid = false) => {
@@ -141,8 +135,6 @@ export function useCompletion() {
 		loading,
 		messages,
 		setMessages,
-		systemPrompt,
-		setSystemPrompt,
 		sendMessage,
 		reset,
 		tools,
