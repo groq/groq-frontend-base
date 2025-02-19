@@ -54,6 +54,8 @@ export default function Home() {
 		}
 	}, []);
 
+	console.log({ messages });
+
 	return (
 		<main className="flex flex-col gap-6 h-svh  items-center p-10 pb-6 overflow-y-auto">
 			<div className=" w-full flex-1 overflow-y-auto" ref={chatContainerRef}>
