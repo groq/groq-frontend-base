@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
 	try {
 		const body = await req.json();
-		const { messages } = body;
+		const { messages, tools } = body;
 		if (!messages) {
 			return new Response(JSON.stringify({ error: "Missing prompt" }), {
 				status: 400,
@@ -37,6 +37,7 @@ export async function POST(req: NextRequest) {
 					messages,
 					stream: true,
 					temperature: 0.5,
+					tools,
 				});
 
 				for await (const chunk of response) {
@@ -44,6 +45,12 @@ export async function POST(req: NextRequest) {
 					if (text) {
 						controller.enqueue(
 							encoder.encode(`data: ${JSON.stringify({ text })}\n\n`),
+						);
+					}
+					const tool_calls = chunk.choices[0]?.delta?.tool_calls ?? [];
+					if (tool_calls.length > 0) {
+						controller.enqueue(
+							encoder.encode(`data: ${JSON.stringify({ tool_calls })}\n\n`),
 						);
 					}
 				}
