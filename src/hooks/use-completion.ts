@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import type { ChatCompletionTool } from "groq-sdk/resources/chat/completions.mjs";
 
 // Example interface; adjust to fit your needs
 interface ChatCompletionMessage {
@@ -6,6 +7,8 @@ interface ChatCompletionMessage {
 	content?: string;
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	tool_calls?: any;
+	tool_call_id?: string;
+	name?: string;
 }
 
 export function useCompletion() {
@@ -13,6 +16,7 @@ export function useCompletion() {
 	const [loading, setLoading] = useState(false);
 	const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
 	const [systemPrompt, setSystemPrompt] = useState<string | null>(null);
+	const [tools, setTools] = useState<ChatCompletionTool[]>([]);
 	const [triggerSend, setTriggerSend] = useState(false);
 
 	const reset = useCallback(() => {
@@ -21,7 +25,6 @@ export function useCompletion() {
 	}, []);
 
 	const sendMessages = useCallback(async () => {
-		// Clear any existing error & set loading
 		setError(null);
 		setLoading(true);
 
@@ -33,7 +36,7 @@ export function useCompletion() {
 			const response = await fetch("/api/chat/completions", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ messages: messagesPack }),
+				body: JSON.stringify({ messages: messagesPack, tools }),
 			});
 
 			if (!response.ok) {
@@ -90,7 +93,7 @@ export function useCompletion() {
 
 							if (tool_calls) {
 								setMessages((prev) => [
-									...prev,
+									...prev.slice(0, -1),
 									{ role: "assistant", tool_calls },
 								]);
 							}
@@ -107,14 +110,23 @@ export function useCompletion() {
 		} finally {
 			setLoading(false);
 		}
-	}, [messages, systemPrompt]);
+	}, [messages, systemPrompt, tools]);
+
+	const addMessageAndSend = useCallback(
+		(message: ChatCompletionMessage, avoid = false) => {
+			setMessages((prev) => [...prev, message]);
+			if (!avoid) {
+				setTriggerSend(true);
+			}
+		},
+		[],
+	);
 
 	const sendMessage = useCallback(
 		(userMessage: string) => {
-			setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
-			sendMessages();
+			addMessageAndSend({ role: "user", content: userMessage });
 		},
-		[sendMessages],
+		[addMessageAndSend],
 	);
 
 	useEffect(() => {
@@ -128,9 +140,14 @@ export function useCompletion() {
 		error,
 		loading,
 		messages,
+		setMessages,
 		systemPrompt,
 		setSystemPrompt,
 		sendMessage,
 		reset,
+		tools,
+		setTools,
+		triggerSend,
+		addMessageAndSend,
 	};
 }
