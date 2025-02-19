@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCompletion } from "./use-completion";
+import { type CompletionDefaults, useCompletion } from "./use-completion";
 
 export interface ToolCall {
 	type: "function";
@@ -13,9 +13,16 @@ export interface ToolResult {
 
 export type ToolHandler = { handler: (tool: ToolCall) => Promise<ToolResult> };
 
-export function useCompletionWithTools() {
-	const completion = useCompletion();
-	const [toolHandler, setToolHandler] = useState<ToolHandler | null>(null);
+export function useCompletionWithTools({
+	toolHandler: defToolHandler = null,
+	...completionDefaults
+}: CompletionDefaults & {
+	toolHandler?: ToolHandler | null;
+} = {}) {
+	const completion = useCompletion(completionDefaults);
+	const [toolHandler, setToolHandler] = useState<ToolHandler | null>(
+		defToolHandler,
+	);
 	const { messages, addMessageAndSend } = completion;
 
 	useEffect(() => {
@@ -38,14 +45,11 @@ export function useCompletionWithTools() {
 						args: JSON.parse(toolCall.function.arguments),
 					})
 					.then((result) => {
-						addMessageAndSend(
-							{
-								role: "tool",
-								tool_call_id: toolCall.id,
-								content: result.content,
-							},
-							// true,
-						);
+						addMessageAndSend({
+							role: "tool",
+							tool_call_id: toolCall.id,
+							content: result.content,
+						});
 					});
 			}
 		}

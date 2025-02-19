@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import {
 	type ToolCall,
 	useCompletionWithTools,
@@ -14,12 +13,11 @@ import type { ChatCompletionTool } from "groq-sdk/resources/chat/completions.mjs
  *
  * GROQ Template
  * Adjust this system prompt to change the behavior of the assistant.
+ *
  */
 const systemPrompt = `
 You are a helpful assistant, colorful, fun and friendly.
-
 Answer everything as a very laid back person in a very informal way.
-
 The user is currently in San Francisco, California.`;
 
 /**
@@ -28,6 +26,7 @@ The user is currently in San Francisco, California.`;
  *
  * GROQ Template
  * Adjust this default prompt to have the conversation start with the user.
+ * https://console.groq.com/docs/text-chat
  */
 const prompt = "Do I need an umbrella today?";
 
@@ -37,6 +36,7 @@ const prompt = "Do I need an umbrella today?";
  *
  * GROQ Template
  * Adjust the tools definition to match your tools
+ * https://console.groq.com/docs/tool-use
  */
 const tools: ChatCompletionTool[] = [
 	{
@@ -60,34 +60,22 @@ const tools: ChatCompletionTool[] = [
  *
  * GROQ Template
  * Adjust the handler to execute your tools
+ * https://console.groq.com/docs/tool-use
  */
-const handler = async (tool: ToolCall) => {
-	return {
-		content: JSON.stringify({ weather: "sunny", temperature: 90 }),
-	};
+const toolHandler = {
+	async handler(tool: ToolCall) {
+		return {
+			content: JSON.stringify({ weather: "sunny", temperature: 90 }),
+		};
+	},
 };
 
 export default function Home() {
-	const {
-		messages,
-		error,
-		setMessages,
-		sendMessage,
-		setToolHandler,
-		setTools,
-	} = useCompletionWithTools();
-
-	useEffect(() => {
-		setMessages([{ role: "system", content: systemPrompt }]);
-	}, [setMessages]);
-
-	useEffect(() => {
-		setTools(tools);
-	}, [setTools]);
-
-	useEffect(() => {
-		setToolHandler({ handler });
-	}, [setToolHandler]);
+	const { messages, error, sendMessage } = useCompletionWithTools({
+		messages: [{ role: "system", content: systemPrompt }],
+		toolHandler,
+		tools,
+	});
 
 	return (
 		<main className="flex  h-svh ">

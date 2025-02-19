@@ -1,4 +1,4 @@
-import type { ChatCompletionMessage } from "@/hooks/use-completion";
+import type { CompletionMessage } from "@/hooks/use-completion";
 import { MarkdownBlock } from "@/components/ui/markdown-block";
 import { AlertCircle, CornerDownLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -12,7 +12,7 @@ export function ChatComponent({
 	handleNewMessage,
 	defaultPrompt,
 }: {
-	messages: ChatCompletionMessage[];
+	messages: CompletionMessage[];
 	error?: Error | null;
 	handleNewMessage: (message: string) => void;
 	defaultPrompt: string;

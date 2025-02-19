@@ -1,26 +1,48 @@
 import { useState, useCallback, useEffect } from "react";
 import type { ChatCompletionTool } from "groq-sdk/resources/chat/completions.mjs";
 
-// Example interface; adjust to fit your needs
-export interface ChatCompletionMessage {
+interface ToolCallInstruction {
+	type: "function";
+	id: string;
+	function: {
+		name: string;
+		arguments: string;
+	};
+}
+
+export interface CompletionMessage {
 	role: "system" | "user" | "assistant" | "tool";
 	content?: string;
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	tool_calls?: any;
+	tool_calls?: ToolCallInstruction[];
 	tool_call_id?: string;
 	name?: string;
 }
 
-export function useCompletion() {
+export interface CompletionDefaults {
+	messages?: CompletionMessage[];
+	tools?: ChatCompletionTool[];
+}
+
+export function useCompletion({
+	messages: defMsgs = [],
+	tools: defTools = [],
+}: CompletionDefaults = {}) {
 	const [error, setError] = useState<Error | null>(null);
 	const [loading, setLoading] = useState(false);
-	const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
-	const [tools, setTools] = useState<ChatCompletionTool[]>([]);
+	const [messages, setMessages] = useState<CompletionMessage[]>(defMsgs);
+	const [tools, setTools] = useState<ChatCompletionTool[]>(defTools);
 	const [triggerSend, setTriggerSend] = useState(false);
 
 	const reset = useCallback(() => {
+		if (loading) {
+			throw new Error("Cannot reset while loading");
+		}
+
 		setMessages([]);
-	}, []);
+		setTools([]);
+		setError(null);
+		setTriggerSend(false);
+	}, [loading]);
 
 	const sendMessages = useCallback(async () => {
 		setError(null);
@@ -106,15 +128,10 @@ export function useCompletion() {
 		}
 	}, [messages, tools]);
 
-	const addMessageAndSend = useCallback(
-		(message: ChatCompletionMessage, avoid = false) => {
-			setMessages((prev) => [...prev, message]);
-			if (!avoid) {
-				setTriggerSend(true);
-			}
-		},
-		[],
-	);
+	const addMessageAndSend = useCallback((message: CompletionMessage) => {
+		setMessages((prev) => [...prev, message]);
+		setTriggerSend(true);
+	}, []);
 
 	const sendMessage = useCallback(
 		(userMessage: string) => {
@@ -133,13 +150,15 @@ export function useCompletion() {
 	return {
 		error,
 		loading,
+
 		messages,
 		setMessages,
-		sendMessage,
-		reset,
+
 		tools,
 		setTools,
-		triggerSend,
+
+		reset,
 		addMessageAndSend,
+		sendMessage,
 	};
 }
