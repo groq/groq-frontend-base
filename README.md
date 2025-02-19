@@ -22,7 +22,7 @@ This repository serves as a **base project** for creating a frontend application
     - [2. Install Dependencies](#2-install-dependencies)
     - [3. Set Up Environment Variables](#3-set-up-environment-variables)
     - [4. Run the Development Server](#4-run-the-development-server)
-    - [5. Build for Production](#5-build-for-production)
+    - [5. Customize for your project](#5-customize-for-your-project)
   - [Project Structure](#project-structure)
   - [Environment Variables](#environment-variables)
   - [Development Workflow](#development-workflow)
@@ -80,14 +80,13 @@ pnpm dev
 
 The app will be available at [http://localhost:3000](http://localhost:3000).
 
-### 5. Build for Production
+### 5. Customize for your project
 
-If you want to build for production:
-
-```bash
-pnpm build
-pnpm start
-```
+- Start your journey at `src/app/page.tsx`.
+- Customize the prompts or tools as needed.
+- Take a quick look at how `src/app/components/chat-component.tsx` is implemented.
+- Use the hooks in `src/hooks/use-completion.ts` and `src/hooks/use-completion-tools.ts` to customize the chat completion logic.
+- Have fun!
 
 *(Adjust as needed if you’re deploying to a service like Vercel or Netlify.)*
 
