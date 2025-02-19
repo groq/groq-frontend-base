@@ -5,9 +5,8 @@
 
 > **A Next.js template that integrates Groq API, Tailwind CSS, ShadCN UI, and a chat completion feature with both server-side and client-side components.**  
 
-<video src="public/demo.mp4" controls width="600">
-  Your browser does not support the video tag.
-</video>
+![Demo](public/demo.gif)
+
 
 This repository serves as a **base project** for creating a frontend application that communicates with the Groq API. It's pre-configured with a modern stack to help you get up and running quickly.
 
