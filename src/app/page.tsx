@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import {
 	type ToolCall,
 	useCompletionWithTools,
@@ -77,13 +77,6 @@ export default function Home() {
 		setTools,
 	} = useCompletionWithTools();
 
-	const handleSendMessage = useMemo(
-		() => (message: string) => {
-			sendMessage(message);
-		},
-		[sendMessage],
-	);
-
 	useEffect(() => {
 		setMessages([{ role: "system", content: systemPrompt }]);
 	}, [setMessages]);
@@ -102,7 +95,7 @@ export default function Home() {
 				defaultPrompt={prompt}
 				messages={messages}
 				error={error}
-				handleNewMessage={handleSendMessage}
+				handleNewMessage={sendMessage}
 			/>
 		</main>
 	);
