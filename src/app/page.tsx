@@ -6,6 +6,7 @@ import {
 } from "@/hooks/use-completion-tools";
 import { ChatComponent } from "./components/chat-component";
 import type { ChatCompletionTool } from "groq-sdk/resources/chat/completions.mjs";
+import { useTheme } from "next-themes"; 
 
 /**
  *
@@ -77,13 +78,20 @@ export default function Home() {
 		tools,
 	});
 
+	const { theme } = useTheme(); // Get the current theme
+
+  // Select the image based on the theme
+	const imageSrc = theme === "dark" ? "/pbg-white.png" :  "/pbg-color.png";
+
 	return (
-		<main className="flex  h-svh ">
+		<main className="flex h-svh ">
+			
 			<ChatComponent
 				defaultPrompt={prompt}
 				messages={messages}
 				error={error}
 				handleNewMessage={sendMessage}
+				logo={imageSrc}
 			/>
 		</main>
 	);

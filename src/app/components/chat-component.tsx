@@ -5,17 +5,20 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { MicButton } from "./mic-button";
+import Image from "next/image";
 
 export function ChatComponent({
 	messages,
 	error,
 	handleNewMessage,
 	defaultPrompt,
+	logo
 }: {
 	messages: CompletionMessage[];
 	error?: Error | null;
 	handleNewMessage: (message: string) => void;
 	defaultPrompt: string;
+	logo: string;
 }) {
 	const chatContainerRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -45,7 +48,8 @@ export function ChatComponent({
 	}, []);
 
 	return (
-		<div className="flex flex-col gap-6 h-svh  items-center p-10 pb-6 overflow-y-auto w-full">
+		<div className="flex flex-col gap-6 h-svh items-center p-10 pb-6 overflow-y-auto w-full">
+			<div><Image src={logo} alt="Background" width={200} height={200} className="" /></div>
 			<div className=" w-full flex-1 overflow-y-auto" ref={chatContainerRef}>
 				<div className="flex flex-col gap-4">
 					{messages.map((message, index) => (
