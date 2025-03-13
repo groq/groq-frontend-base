@@ -1,4 +1,3 @@
-
 # groq-frontend-base
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
@@ -53,7 +52,11 @@ git clone https://github.com/your-username/groq-frontend-base.git
 cd groq-frontend-base
 ```
 
-Or click the **“Use this template”** button on GitHub to create a new repository from this template.
+Or click the **"Use this template"** button on GitHub to create a new repository from this template.
+
+Alternatively, you can **deploy directly to Vercel** by clicking the button below:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgroq%2Fgroq-frontend-base&products=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22groq%22%2C%22productSlug%22%3A%22api-key%22%2C%22protocol%22%3A%22ai%22%2C%22group%22%3A%22%22%7D%5D)
 
 ### 2. Install Dependencies
 
@@ -65,10 +68,15 @@ pnpm install
 
 ### 3. Set Up Environment Variables
 
-Create a file named `.env.local` in the project root. Include your **Groq API key**:
+Copy the example environment file and add your Groq API key:
 
 ```bash
-# GROQ_API_KEY must be secret and not shared.
+cp .env.local.example .env.local
+```
+
+Then edit `.env.local` to add your API key from https://console.groq.com/keys
+
+```bash
 GROQ_API_KEY=your_api_key
 ```
 
@@ -88,13 +96,13 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 - Use the hooks in `src/hooks/use-completion.ts` and `src/hooks/use-completion-tools.ts` to customize the chat completion logic.
 - Have fun!
 
-*(Adjust as needed if you’re deploying to a service like Vercel or Netlify.)*
+*(Adjust as needed if you're deploying to a service like Vercel or Netlify.)*
 
 ---
 
 ## Project Structure
 
-A quick look at the top-level files and directories you’ll see in this project:
+A quick look at the top-level files and directories you'll see in this project:
 
 ```
 .
@@ -147,7 +155,7 @@ For major changes, please discuss with the maintainers via GitHub issues first t
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). You’re free to use and modify this code for your own purposes.  
+This project is licensed under the [MIT License](LICENSE). You're free to use and modify this code for your own purposes.  
 
 ---
 
