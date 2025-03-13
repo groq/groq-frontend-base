@@ -6,7 +6,8 @@ import {
 } from "@/hooks/use-completion-tools";
 import { ChatComponent } from "./components/chat-component";
 import type { ChatCompletionTool } from "groq-sdk/resources/chat/completions.mjs";
-import { useTheme } from "next-themes"; 
+import { getWeather } from "@/lib/weather";
+import { PoweredByGroq } from "@/components/powered-by-groq";
 
 /**
  *
@@ -44,11 +45,12 @@ const tools: ChatCompletionTool[] = [
 		type: "function",
 		function: {
 			name: "get_current_weather",
-			description: "Get the current weather",
+			description: "Get the current weather of the specified location",
 			parameters: {
 				type: "object",
 				properties: {
-					location: { type: "string" },
+					latitude: { type: "string" },
+					longitude: { type: "string" },
 				},
 			},
 		},
@@ -65,8 +67,10 @@ const tools: ChatCompletionTool[] = [
  */
 const toolHandler = {
 	async handler(tool: ToolCall) {
+		const { latitude, longitude } = tool.args;
+
 		return {
-			content: JSON.stringify({ weather: "sunny", temperature: 90 }),
+			content: await getWeather(String(latitude), String(longitude)),
 		};
 	},
 };
@@ -78,21 +82,15 @@ export default function Home() {
 		tools,
 	});
 
-	const { theme } = useTheme(); // Get the current theme
-
-  // Select the image based on the theme
-	const imageSrc = theme === "dark" ? "/pbg-white.png" :  "/pbg-color.png";
-
 	return (
-		<main className="flex h-svh ">
-			
+		<main className="flex h-svh flex-col ">
 			<ChatComponent
 				defaultPrompt={prompt}
 				messages={messages}
 				error={error}
 				handleNewMessage={sendMessage}
-				logo={imageSrc}
 			/>
+			<PoweredByGroq />
 		</main>
 	);
 }
