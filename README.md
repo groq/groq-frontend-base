@@ -56,7 +56,7 @@ Or click the **"Use this template"** button on GitHub to create a new repository
 
 Alternatively, you can **deploy directly to Vercel** by clicking the button below:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgroq%2Fgroq-frontend-base&products=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22groq%22%2C%22productSlug%22%3A%22api-key%22%2C%22protocol%22%3A%22ai%22%2C%22group%22%3A%22%22%7D%5D)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-description=Next.js%20template%20integrating%20Groq%20API%2C%20Tailwind%20CSS%2C%20and%20ShadCN%20UI%20with%20chat%20completion%20and%20both%20server-side%20%26%20client-side%20components.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F2Q8bQ6hZECKH4ZSYnMbTko%2Fbdb7e2ce90eca75f4535713f42da595e%2Fscreenshot.png&demo-title=Groq%20Starter&demo-url=https%3A%2F%2Ffrontend-base.groqlabs.com%2F&from=templates&products=%255B%257B%2522type%2522%253A%2522integration%2522%252C%2522protocol%2522%253A%2522ai%2522%252C%2522productSlug%2522%253A%2522api-key%2522%252C%2522integrationSlug%2522%253A%2522groq%2522%257D%255D&project-name=Groq%20Starter&repository-name=groq-starter&repository-url=https%3A%2F%2Fgithub.com%2Fgroq%2Fgroq-frontend-base&skippable-integrations=1)
 
 ### 2. Install Dependencies
 
