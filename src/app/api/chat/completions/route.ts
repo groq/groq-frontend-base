@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 		const readableStream = new ReadableStream({
 			async start(controller) {
 				const response = await groq.chat.completions.create({
-					model: "llama-3.3-70b-specdec",
+					model: "meta-llama/llama-4-scout-17b-16e-instruct",
 					messages,
 					stream: true,
 					temperature: 0.5,
